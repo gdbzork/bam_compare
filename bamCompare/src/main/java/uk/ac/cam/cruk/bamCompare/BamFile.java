@@ -44,13 +44,31 @@ class BamFile {
   
   public List<SAMRecord> nextNameGroup() {
     List<SAMRecord> nameGroup = new ArrayList<SAMRecord>();
+    if (!rdrIt.hasNext()) {
+      if (current != null) {
+        nameGroup.add(current);
+        current = null;
+      }
+      return nameGroup;
+    }
     String name = current.getReadName();
     nameGroup.add(current);
-    while ((current = rdrIt.next()).getReadName().equals(name)) {
+    current = rdrIt.next();
+    while (rdrIt.hasNext() && current.getReadName().equals(name)) {
       nameGroup.add(current);
+      current = rdrIt.next();
+    }
+    if (current.getReadName().equals(name)) {
+      nameGroup.add(current);
+      current = null;
     }
     return nameGroup;
   }
+  
+  public boolean hasNext() {
+    return rdrIt.hasNext();
+  }
+  
   public void close() throws IOException {
     rdr.close();
   }
