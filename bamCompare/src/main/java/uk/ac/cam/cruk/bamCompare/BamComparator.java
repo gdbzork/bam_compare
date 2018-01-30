@@ -22,12 +22,13 @@ public class BamComparator {
     return okay;
   }
 
-  public void report(List<SAMRecord> recs,String fn) {
-    System.out.println(fn+"\t"+recs.size()+"\t"+recs.get(0).getReadName());
-//    for (SAMRecord rec : recs) {
-//      System.out.println("U: " + rec.getContig() + ":" + rec.getAlignmentStart() + "-" + rec.getAlignmentEnd() + " : "
-//          + rec.getReadName());
-//    }
+  public void report(List<SAMRecord> recs, String fn) {
+    System.out.println(fn + "\t" + recs.size() + "\t" + recs.get(0).getReadName());
+    // for (SAMRecord rec : recs) {
+    // System.out.println("U: " + rec.getContig() + ":" + rec.getAlignmentStart() +
+    // "-" + rec.getAlignmentEnd() + " : "
+    // + rec.getReadName());
+    // }
   }
 
   public int filterGroup(List<SAMRecord> recs) {
@@ -36,10 +37,10 @@ public class BamComparator {
     while (recIt.hasNext()) {
       SAMRecord rec = recIt.next();
       boolean remove = rec.getReadUnmappedFlag() || rec.getIntegerAttribute("NM") > 0 || rec.getCigarLength() > 1;
-//        remove = rec.getReadUnmappedFlag() || rec.getIntegerAttribute("NM") > 0;
-//      } catch (NullPointerException npe) {
-//        System.err.println("NPE: " + npe.toString());
-//      }
+      // remove = rec.getReadUnmappedFlag() || rec.getIntegerAttribute("NM") > 0;
+      // } catch (NullPointerException npe) {
+      // System.err.println("NPE: " + npe.toString());
+      // }
       if (remove) {
         recIt.remove();
         removed++;
@@ -98,11 +99,11 @@ public class BamComparator {
           if (rec1.size() == 0 && rec2.size() == 0) { // no exact matches (or unaligned)
             // nothing to do
           } else if (rec1.size() == 0) {
-            report(rec2,fn2);
+            report(rec2, fn2);
             discrepancies++;
             unique2++;
           } else if (rec2.size() == 0) {
-            report(rec1,fn1);
+            report(rec1, fn1);
             discrepancies++;
             unique1++;
           } else if (!compareGroups(rec1, name1, rec2, name2)) {
@@ -139,8 +140,8 @@ public class BamComparator {
     } catch (IOException ioe) {
       System.err.println("Got error closing BAM files: " + ioe.toString());
     }
-    System.out.println(fn1+": "+unique1+" unique");
-    System.out.println(fn2+": "+unique2+" unique");
+    System.out.println(fn1 + ": " + unique1 + " unique");
+    System.out.println(fn2 + ": " + unique2 + " unique");
     return discrepancies;
   }
 
