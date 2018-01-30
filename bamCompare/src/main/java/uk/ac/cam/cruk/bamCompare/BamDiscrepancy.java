@@ -4,23 +4,23 @@
 package uk.ac.cam.cruk.bamCompare;
 
 /**
- * @author brown22
+ * @author Gord Brown
  *
  */
 public abstract class BamDiscrepancy {
-  private String readName = null;
-  private String message  = null;
+  protected String readName = null;
+  protected String fileName = null;
+  protected int count = 0;
+  protected String message  = null;
 
-  public BamDiscrepancy(String rn, String msg) {
+  public BamDiscrepancy(String rn, String fn, int ct, String msg) {
     readName = rn;
+    fileName = fn;
+    count = ct;
     message = msg;
-  }
-
-  public BamDiscrepancy(String rn) {
-    this(rn, "");
   }
 
   public String toString() {
     return "Discrepancy: " + readName + " " + message;
-  };
+  }
 }
