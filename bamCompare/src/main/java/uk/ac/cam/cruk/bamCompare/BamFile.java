@@ -6,9 +6,10 @@ package uk.ac.cam.cruk.bamCompare;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
+import htsjdk.samtools.SAMFileHeader;
 import htsjdk.samtools.SAMRecord;
 import htsjdk.samtools.SAMRecordIterator;
 import htsjdk.samtools.SamReader;
@@ -20,10 +21,10 @@ import htsjdk.samtools.SamReaderFactory;
  */
 class BamFile {
 
-  Path bamFileFN = null;
-  SamReader rdr = null;
-  SAMRecordIterator rdrIt = null;
-  SAMRecord current = null;
+  Path              bamFileFN = null;
+  SamReader         rdr       = null;
+  SAMRecordIterator rdrIt     = null;
+  SAMRecord         current   = null;
 
   /**
    * 
@@ -41,7 +42,11 @@ class BamFile {
     rdrIt = rdr.iterator();
     current = rdrIt.next();
   }
-  
+
+  public SAMFileHeader header() {
+    return rdr.getFileHeader();
+  }
+
   public List<SAMRecord> nextNameGroup() {
     List<SAMRecord> nameGroup = new ArrayList<SAMRecord>();
     if (!rdrIt.hasNext()) {
@@ -64,19 +69,19 @@ class BamFile {
     }
     return nameGroup;
   }
-  
+
   public boolean hasNext() {
     return rdrIt.hasNext();
   }
-  
+
   public void close() throws IOException {
     rdr.close();
   }
-  
+
   public int count() throws IOException {
     return count(false);
   }
-  
+
   public int count(boolean mapped) throws IOException {
     int n = 0;
     SamReader fd = SamReaderFactory.makeDefault().open(bamFileFN.toFile());
