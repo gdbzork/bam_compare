@@ -1,4 +1,4 @@
-package uk.ac.cam.cruk.bamCompare;
+package org.gdbrown.bamCompare;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;

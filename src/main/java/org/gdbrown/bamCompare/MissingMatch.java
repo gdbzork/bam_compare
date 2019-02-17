@@ -1,4 +1,4 @@
-package uk.ac.cam.cruk.bamCompare;
+package org.gdbrown.bamCompare;
 
 public class MissingMatch extends BamDiscrepancy {
 

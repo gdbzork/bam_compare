@@ -1,7 +1,7 @@
 /**
  * 
  */
-package uk.ac.cam.cruk.bamCompare;
+package org.gdbrown.bamCompare;
 
 /**
  * @author Gord Brown

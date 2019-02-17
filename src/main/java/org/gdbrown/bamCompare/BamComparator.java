@@ -1,4 +1,4 @@
-package uk.ac.cam.cruk.bamCompare;
+package org.gdbrown.bamCompare;
 
 import java.io.IOException;
 import java.nio.file.Paths;
